@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class QuestManager {
 
-    private final Map<UUID, Quest> activeQuests = new HashMap<>();
+    private final Map<UUID, Map<UUID, Quest>> activeQuests = new HashMap<>();
 
     public Quest generateQuest(UUID playerId) {
         Rarity rarity = getRandomRarity();
@@ -19,13 +19,15 @@ public class QuestManager {
             tasks.add(new Task(type, target, amount));
         }
 
-        Quest quest = new Quest(playerId, rarity, tasks);
-        activeQuests.put(playerId, quest);
+        UUID questId = UUID.randomUUID();
+        Quest quest = new Quest(questId, playerId, rarity, tasks);
+        activeQuests.computeIfAbsent(playerId, k -> new HashMap<>()).put(questId, quest);
         return quest;
     }
 
-    public Quest getQuest(UUID playerId) {
-        return activeQuests.get(playerId);
+    public Quest getQuest(UUID questId, UUID playerId) {
+        Map<UUID, Quest> playerQuests = activeQuests.get(playerId);
+        return playerQuests != null ? playerQuests.get(questId) : null;
     }
 
     private Rarity getRandomRarity() {

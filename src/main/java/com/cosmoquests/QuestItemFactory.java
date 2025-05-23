@@ -2,6 +2,8 @@ package com.cosmoquests;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -19,6 +21,10 @@ public class QuestItemFactory {
         ItemMeta meta = item.getItemMeta();
 
         if (meta == null) return item;
+
+        // Store quest ID in metadata
+        NamespacedKey questIdKey = new NamespacedKey(CosmoQuestsPlugin.getPlugin(CosmoQuestsPlugin.class), "quest_id");
+        meta.getPersistentDataContainer().set(questIdKey, PersistentDataType.STRING, quest.getId().toString());
 
         // Name with rarity color
         ChatColor rarityColor = getRarityColor(quest.getRarity());

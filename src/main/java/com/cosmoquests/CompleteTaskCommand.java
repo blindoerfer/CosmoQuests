@@ -2,12 +2,16 @@ package com.cosmoquests;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
+
+import java.util.UUID;
 
 import java.util.List;
 
@@ -40,7 +44,14 @@ public class CompleteTaskCommand implements CommandExecutor {
             return true;
         }
 
-        Quest quest = questManager.getQuest(target.getUniqueId());
+        String questId = item.getItemMeta().getPersistentDataContainer()
+            .get(new NamespacedKey(CosmoQuestsPlugin.getPlugin(CosmoQuestsPlugin.class), "quest_id"), PersistentDataType.STRING);
+        if (questId == null) {
+            sender.sendMessage(ChatColor.RED + "Invalid quest cookie.");
+            return true;
+        }
+
+        Quest quest = questManager.getQuest(UUID.fromString(questId), target.getUniqueId());
         if (quest == null) {
             sender.sendMessage(ChatColor.RED + "No active quest found for " + target.getName());
             return true;
@@ -67,8 +78,8 @@ public class CompleteTaskCommand implements CommandExecutor {
             }
         }
 
-        questListener.updateQuestCookies(target, quest);
-        questListener.checkAndRewardCompletedCookies(target, quest);
+        questListener.updateQuestCookie(target, item, quest);
+        questListener.checkAndRewardCompletedCookiesAnywhere(target, quest);
         return true;
     }
 

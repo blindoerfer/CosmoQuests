@@ -1,0 +1,12 @@
+com\cosmoquests\CosmoQuestsPlugin.class
+com\cosmoquests\Task.class
+com\cosmoquests\QuestListener.class
+com\cosmoquests\QuestItemFactory.class
+com\cosmoquests\Rarity.class
+com\cosmoquests\TaskType.class
+com\cosmoquests\QuestManager$1.class
+com\cosmoquests\Quest.class
+com\cosmoquests\QuestManager.class
+com\cosmoquests\CompleteTaskCommand.class
+com\cosmoquests\QuestCommand.class
+com\cosmoquests\QuestItemFactory$1.class

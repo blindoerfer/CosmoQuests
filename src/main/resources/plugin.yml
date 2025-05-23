@@ -1,0 +1,14 @@
+name: CosmoQuests
+main: com.cosmoquests.CosmoQuestsPlugin
+version: 1.0
+api-version: 1.19
+description: A space-themed quest plugin that gives players clue scrolls with random tasks and rewards.
+author: William Lindoerfer
+commands:
+  cosmoquest:
+    description: Manage your CosmoQuests quests.
+    usage: /cosmoquest
+    aliases: [cq, quests]
+  completetask:
+    description: Complete a specific quest task.
+    usage: /completetask <player> <taskNumber>

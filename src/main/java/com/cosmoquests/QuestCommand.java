@@ -24,7 +24,7 @@ public class QuestCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         // Generate quest and give quest item
-        Quest quest = questManager.generateQuest(player.getUniqueId());
+        Quest quest = questManager.generateQuest();
         ItemStack questItem = QuestItemFactory.createQuestItem(quest);
 
         player.getInventory().addItem(questItem);

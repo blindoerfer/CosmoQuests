@@ -51,7 +51,7 @@ public class CompleteTaskCommand implements CommandExecutor {
             return true;
         }
 
-        Quest quest = questManager.getQuest(UUID.fromString(questId), target.getUniqueId());
+        Quest quest = questManager.getQuest(UUID.fromString(questId));
         if (quest == null) {
             sender.sendMessage(ChatColor.RED + "No active quest found for " + target.getName());
             return true;

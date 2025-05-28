@@ -54,7 +54,7 @@ public class QuestListener implements Listener {
                 .get(new NamespacedKey(CosmoQuestsPlugin.getPlugin(CosmoQuestsPlugin.class), "quest_id"), PersistentDataType.STRING);
             if (questId == null) continue;
 
-            Quest quest = questManager.getQuest(UUID.fromString(questId), player.getUniqueId());
+            Quest quest = questManager.getQuest(UUID.fromString(questId));
             if (quest == null) continue;
 
             boolean updated = false;
